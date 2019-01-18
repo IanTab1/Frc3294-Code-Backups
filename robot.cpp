@@ -10,11 +10,12 @@
 #include <frc/TimedRobot.h>
 #include <frc/drive/MecanumDrive.h>
 
-/**
- * This is a demo program showing how to use Mecanum control with the
- * MecanumDrive class.
- */
+  static constexpr int lJoystickChannel = 0;
+  static constexpr int rJoystickChannel = 1;
+
 class Robot : public frc::TimedRobot {
+    frc::Joystick l_stick{lJoystickChannel};
+  frc::Joystick r_stick{rJoystickChannel};
  public:
 
 void RobotInit() override {
@@ -28,11 +29,9 @@ void RobotInit() override {
     m_backLeft.Set(0.5);
     m_frontRight.Set(0.5);
     m_backRight.Set(0.5);
-  frc::Joystick joyone = new Joystick (1);
-  frc::Joystick joytwo = new Joystick(2);
-    
- // Joystick *stick = new j_left(1); // Creates a Joystick object connected to USB on port 1 of the driverstation
- // Joystick *stick = new j_right(2); // Creates a Joystick object connected to USB on port 2 of the driverstation
+  
+
+ 
   }
 
   void AutonomousInit() override {
@@ -43,19 +42,19 @@ void RobotInit() override {
 
 
   void TeleopPeriodic() override {
-    /* Use the joystick X axis for lateral movement, Y axis for forward
-     * movement, and Z axis for rotation.
-     */
-    m_robotDrive.DriveCartesian(joyone.GetX(), joytwo.GetY(), joytwo.GetX());
+
+m_robotDrive.DriveCartesian(l_stick.GetX(), r_stick.GetY(), r_stick.GetX());
   }
 
  private:
-  frc::MecanumDrive m_robotDrive{m_frontLeft, m_backLeft, m_frontRight, m_backRight};
-
   frc::Spark m_frontLeft{0};
   frc::Spark m_backLeft{1};
   frc::Spark m_frontRight{2};
   frc::Spark m_backRight{3};
+  
+  frc::MecanumDrive m_robotDrive{m_frontLeft, m_backLeft, m_frontRight, m_backRight};
+
+
 
 };
 
