@@ -17,6 +17,7 @@
 #include <frc/drive/MecanumDrive.h>
 #include <frc/SpeedControllerGroup.h>
 #include <AHRS.h>
+#include <WPILib.h>
 
 class Robot : public frc::TimedRobot {
 #if defined(__linux__)
@@ -34,13 +35,14 @@ class Robot : public frc::TimedRobot {
     //initiating joystick at m_stick
     frc::Joystick m_stick{0};
 
-	ahrs = new AHRS(SPI::Port::kMXP);
+		ahrs = new AHRS(SPI.Port.kMXP);
 
-    //initiating robot drive at m_drive
+		//initiating robot drive at m_drive
     frc::MecanumDrive m_drive{m_frontLeft, m_backLeft, m_frontRight, m_backRight};
 	void TeleopPeriodic() {
     // Drive with Mecanum
-    m_drive.SetSafetyEnabled(false);
+		/*
+		m_drive.SetSafetyEnabled(false);
     while (IsOperatorControl() && IsEnabled()) {
 		bool reset_yaw_button_pressed = m_stick.GetRawButton(1);
     	if ( reset_yaw_button_pressed ) {
@@ -49,6 +51,7 @@ class Robot : public frc::TimedRobot {
     	m_drive.DriveCartesian(m_stick.GetX(), m_stick.GetY(), m_stick.GetZ(), ahrs->GetAngle());
     }
     Wait(0.005); // wait 5ms to avoid hogging CPU cycles
+		*/
 	}
 static void VisionThread() {
     // Get the USB camera from CameraServer
